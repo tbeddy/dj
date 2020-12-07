@@ -28,8 +28,23 @@ crossfader.addEventListener("input", e => {
   const inputValue = e.currentTarget.value;
   gainNode1.gain.value = 1.0 - inputValue;
   gainNode2.gain.value = inputValue;
-  console.log(inputValue);
 });
+
+const speed1 = document.getElementById("speed1");
+const speed2 = document.getElementById("speed2");
+
+speed1.addEventListener("input", e => {
+  changeSpeed(1, e.currentTarget.value);
+});
+
+speed2.addEventListener("input", e => {
+  changeSpeed(2, e.currentTarget.value);
+});
+
+const changeSpeed = (n, speed) => {
+  const audio = n === 1 ? track1.mediaElement : track2.mediaElement;
+  audio.playbackRate = speed;
+}
 
 const playOrPause = (n) => {
   const ppButton = document.getElementById(`ppButton${n}`);
