@@ -19,8 +19,11 @@ const track2 = ac.createMediaElementSource(document.getElementById("track2"));
 const gainNode1 = ac.createGain();
 const gainNode2 = ac.createGain();
 
-track1.connect(gainNode1).connect(ac.destination);
-track2.connect(gainNode2).connect(ac.destination);
+const panNode1 = ac.createStereoPanner();
+const panNode2 = ac.createStereoPanner();
+
+track1.connect(gainNode1).connect(panNode1).connect(ac.destination);
+track2.connect(gainNode2).connect(panNode2).connect(ac.destination);
 
 const crossfader = document.getElementById("crossfader");
 
@@ -40,6 +43,17 @@ speed1.addEventListener("input", e => {
 speed2.addEventListener("input", e => {
   changeSpeed(2, e.currentTarget.value);
 });
+
+const pan1 = document.getElementById("pan1");
+const pan2 = document.getElementById("pan2");
+
+pan1.addEventListener("input", e => {
+  panNode1.pan.value = e.currentTarget.value;
+})
+
+pan2.addEventListener("input", e => {
+  panNode2.pan.value = e.currentTarget.value;
+})
 
 const changeSpeed = (n, speed) => {
   const audio = n === 1 ? track1.mediaElement : track2.mediaElement;
