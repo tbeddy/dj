@@ -1,6 +1,6 @@
 import "./styles/index.scss";
 
-document.querySelector('button').addEventListener('click', () => {
+document.getElementsByClassName('main-area')[0].addEventListener('mouseover', () => {
   if (ac.state === 'suspended') ac.resume();
 });
 
