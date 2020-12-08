@@ -16,6 +16,14 @@ const ac = new (window.AudioContext || window.webkitAudioContext)();
 const track1 = ac.createMediaElementSource(document.getElementById("track1"));
 const track2 = ac.createMediaElementSource(document.getElementById("track2"));
 
+document.getElementById('track1').addEventListener('loadeddata', () => {
+  gainNode1.gain.value = 1.0;
+});
+
+document.getElementById('track2').addEventListener('loadeddata', () => {
+  gainNode2.gain.value = 0.0;
+});
+
 const gainNode1 = ac.createGain();
 const gainNode2 = ac.createGain();
 
