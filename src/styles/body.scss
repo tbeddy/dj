@@ -24,6 +24,12 @@
   width: 100%;
 }
 
+.track-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .crossfader-area {
   display: flex;
   flex-direction: column;
@@ -37,8 +43,18 @@
   }
 }
 
-.track-bank {
+#track-bank {
   margin: 10px;
   width: 100%;
+  border: solid black 1px;
+}
+
+#track-bank-header {
+  text-align: center;
+}
+
+.track-listing {
+  text-align: center;
+  margin: 5px;
   border: solid black 1px;
 }

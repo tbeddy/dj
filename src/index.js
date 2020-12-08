@@ -1,4 +1,46 @@
 import "./styles/index.scss";
+import Track from "./scripts/track";
+
+const trackList = require("./tracks.json");
+
+const tracks = trackList.map(trackInfo => {
+  const { title, artist, url } = trackInfo;
+  return new Track(title, artist, url);
+});
+
+const trackBank = document.getElementById("track-bank");
+const ul = document.createElement("ul");
+tracks.forEach((track, idx) => {
+  const li = document.createElement("li");
+  li.classList.add("track-listing");
+  li.setAttribute("draggable", "true");
+  li.setAttribute("id", idx);
+  const text = document.createTextNode(track.title);
+  li.appendChild(text);
+  ul.appendChild(li);
+});
+trackBank.appendChild(ul);
+
+document.querySelectorAll(".track-listing").forEach(el => {
+  el.addEventListener('dragstart', e => {
+    e.dataTransfer.setData("text/plain", el.id);
+  })
+});
+
+document.querySelectorAll(".track-area").forEach(el => {
+  el.addEventListener('dragover', e => {
+    e.preventDefault();
+  });
+  el.addEventListener('drop', e => {
+    const trackInfo = tracks[e.dataTransfer.getData("text")];
+    const audio = el.querySelector("audio");
+    const title = el.querySelector(".track-title");
+    const artist = el.querySelector(".track-artist");
+    audio.src = trackInfo.url;
+    title.innerHTML = trackInfo.title;
+    artist.innerHTML = trackInfo.artist;
+  });
+});
 
 document.getElementsByClassName('main-area')[0].addEventListener('mouseover', () => {
   if (ac.state === 'suspended') ac.resume();
