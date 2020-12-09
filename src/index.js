@@ -36,9 +36,11 @@ document.querySelectorAll(".track-area").forEach(el => {
     const audio = el.querySelector("audio");
     const title = el.querySelector(".track-title");
     const artist = el.querySelector(".track-artist");
+    const ppButton = el.querySelector("button");
     audio.src = trackInfo.url;
     title.innerHTML = trackInfo.title;
     artist.innerHTML = trackInfo.artist;
+    ppButton.removeAttribute("disabled");
   });
 });
 
