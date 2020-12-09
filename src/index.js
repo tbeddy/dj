@@ -113,11 +113,14 @@ const changeSpeed = (n, speed) => {
 const playOrPause = (n) => {
   const ppButton = document.getElementById(`ppButton${n}`);
   const audio = n === 1 ? track1.mediaElement : track2.mediaElement;
+  const record_img = audio.parentElement.querySelector('.record-img');
   if (audio.paused) {
-    audio.play();
     ppButton.innerHTML = "pause";
+    record_img.classList.add("rotate");
+    audio.play();
   } else {
-    audio.pause();
     ppButton.innerHTML = "play";
+    record_img.classList.remove("rotate");
+    audio.pause();
   }
 };
