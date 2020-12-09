@@ -22,11 +22,10 @@ tracks.forEach((track, idx) => {
 trackBank.appendChild(ul);
 
 document.querySelectorAll(".track-listing").forEach(el => {
+  const blank_record = new Image();
+  blank_record.src = "./src/images/record_sleeve.png";
   el.addEventListener('dragstart', e => {
     e.dataTransfer.setData("text/plain", el.id);
-    const blank_record = new Image();
-    blank_record.src = "./src/images/record_sleeve.png";
-    blank_record.classList.add("drag-record");
     e.dataTransfer.setDragImage(blank_record, 150, 150);
   })
 });
