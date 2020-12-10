@@ -104,7 +104,6 @@ $knob-silver: rgb(209, 204, 204);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 10px;
     height: inherit;
     margin-left: 10px;
@@ -116,6 +115,12 @@ $knob-silver: rgb(209, 204, 204);
     width: 100px;
     right: 40px;
   }
+}
+
+.pan-labels {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #middle-section {
@@ -140,7 +145,6 @@ $knob-silver: rgb(209, 204, 204);
 .letter-label {
   margin: 10px;
   font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 #track-bank {
