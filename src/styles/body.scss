@@ -1,3 +1,16 @@
+$equipment-grey: rgb(143, 137, 137);
+
+.main {
+  flex-grow: 2;
+  display: flex;
+  flex-flow: column;
+  // height: 100%;
+  height: 95vh;
+  width: 100%;
+  flex: 0 1 auto;
+  background-color: black;
+}
+
 .main-area {
   display: flex;
   flex-direction: column;
@@ -5,15 +18,18 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 500px;
-  width: 800px;
   border: solid black 1px;
+  background-color: rgb(49, 49, 47);
+  background-size: cover;
 }
 
 .all-tracks-area {
   display: flex;
   flex-direction: row;
-  flex-grow: 2;
+}
+
+.turntable {
+  width: 250px;
 }
 
 .track-area {
@@ -21,13 +37,35 @@
   flex-direction: column;
   border: solid black 1px;
   margin: 10px;
-  width: 100%;
+  padding: 10px;
+  background-color: $equipment-grey;
+}
+
+.all-track-info {
+  background-color: black;
+  border-radius: 10px;
 }
 
 .track-info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 5px;
+}
+
+.alarm-text {
+  text-transform: uppercase;
+  font-family: "alarmClock";
+  color: red;
+}
+
+.ppButton {
+  position: absolute;
+  top: 190px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  outline: none;
 }
 
 .record-img {
@@ -49,31 +87,51 @@
   }
 }
 
+#middle-section {
+  width: 200px;
+}
+
 .crossfader-area {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  height: 50px;
+  width: inherit;
   align-self: center;
+  background-color: $equipment-grey;
 
   input[type=range] {
-    width: 300px;
+    width: 150px;
   }
 }
 
-#track-bank {
+.letter-label {
   margin: 10px;
-  width: 100%;
-  border: solid black 1px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-#track-bank-header {
-  text-align: center;
+#track-bank {
+  margin: 10px 0px;
+  border: solid black 1px;
+  background-color: black;
 }
 
 .track-listing {
   text-align: center;
-  margin: 5px;
-  border: solid black 1px;
+  margin: 1px;
+  font-family: "scribble";
+  background-color: #d5b087;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.label {
+  display: inline;
+  background-color: white;
+  padding: 0px 5px;
+  border-radius: 5px 5px 0px 0px;
 }

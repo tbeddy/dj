@@ -15,8 +15,10 @@ tracks.forEach((track, idx) => {
   li.classList.add("track-listing");
   li.setAttribute("draggable", "true");
   li.setAttribute("id", idx);
-  const text = document.createTextNode(track.title);
-  li.appendChild(text);
+  const label = document.createElement("div");
+  label.classList.add("label");
+  label.innerText = track.title;
+  li.appendChild(label);
   ul.appendChild(li);
 });
 trackBank.appendChild(ul);
@@ -120,11 +122,9 @@ const playOrPause = (n) => {
   const audio = n === 1 ? track1.mediaElement : track2.mediaElement;
   const record_img = audio.parentElement.querySelector('.record-img');
   if (audio.paused) {
-    ppButton.innerHTML = "pause";
     record_img.classList.add("rotate");
     audio.play();
   } else {
-    ppButton.innerHTML = "play";
     record_img.classList.remove("rotate");
     audio.pause();
   }

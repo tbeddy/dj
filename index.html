@@ -11,72 +11,91 @@
 
 <body>
     <header>
+        <a href="https://github.com/tbeddy/dj">
+            <img class="logo-img" src="./src/images/github.png">
+        </a>
         <p class="title">DJ</p>
-        <p>This will be a description of this project.</p>
-        <p>There will also be instructions.</p>
+        <a href="https://www.linkedin.com/in/timcmbedford/">
+            <img class="logo-img" src="./src//images/linkedin.png">
+        </a>
     </header>
 
-    <body>
+    <div class="main">
         <div class="main-area">
             <div class="all-tracks-area">
-                <div class="track-area">
-                    <audio id="track1" crossorigin="anonymous"></audio>
-                    <img
-                        class="record-img"
-                        src="./src/images/record_a.png"
-                    >
-                    <div class="track-info">
-                        <span>Track:</span>
-                        <span class="track-title"></span>
+                <div class="turntable">
+                    <div class="track-area">
+                        <audio id="track1" crossorigin="anonymous"></audio>
+                        <img
+                            class="record-img"
+                            src="./src/images/record_a.png"
+                        >
+                        <button class="ppButton" id="ppButton1" disabled>
+                            <img src="./src/images/play-pause-svgrepo-com.png">
+                        </button>
+                        <div class="all-track-info">
+                            <div class="track-info alarm-text">
+                                <span>Track:</span>
+                                <span class="track-title"></span>
+                            </div>
+                            <div class="track-info alarm-text">
+                                <span>Artist:</span>
+                                <span class="track-artist"></span>
+                            </div>
+                        </div>
+                        <label for="speed1">Speed</label>
+                        <input type="range" id="speed1" min="0.0" max="2.0" step="0.01">
+                        <label for="pan1">Pan</label>
+                        <input type="range" id="pan1" min="-1.0" max="1.0" step="0.01">
                     </div>
-                    <div class="track-info">
-                        <span>Artist:</span>
-                        <span class="track-artist"></span>
-                    </div>
-                    <button id="ppButton1" disabled>play</button>
-                    <label for="speed1">Speed</label>
-                    <input type="range" id="speed1" min="0.0" max="2.0" step="0.01">
-                    <label for="pan1">Pan</label>
-                    <input type="range" id="pan1" min="-1.0" max="1.0" step="0.01">
                 </div>
-                <div id="track-bank">
-                    <p id="track-bank-header">
-                        Tracks
-                    </p>
-                </div>
-                <div class="track-area">
-                    <audio id="track2" crossorigin="anonymous"></audio>
-                    <img
-                        class="record-img"
-                        src="./src/images/record_b.png"
-                    >
-                    <div class="track-info">
-                        <span>Track:</span>
-                        <span class="track-title"></span>
+                <div id="middle-section">
+                    <div id="track-bank"></div>
+                    <div class="crossfader-area">
+                        <p class="letter-label">A</p>
+                        <input type="range" id="crossfader" min="0" max="1.0" step="0.01" value="0">
+                        <p class="letter-label">B</p>
                     </div>
-                    <div class="track-info">
-                        <span>Artist:</span>
-                        <span class="track-artist"></span>
-                    </div>
-                    <button id="ppButton2" disabled>play</button>
-                    <label for="speed2">Speed</label>
-                    <input type="range" id="speed2" min="0.0" max="2.0" step="0.01">
-                    <label for="pan2">Pan</label>
-                    <input type="range" id="pan2" min="-1.0" max="1.0" step="0.01">
                 </div>
-            </div>
-            <div class="crossfader-area">
-                <label for="crossfader">Crossfader</label>
-                <input type="range" id="crossfader" min="0" max="1.0" step="0.01" value="0">
+                <div class="turntable">
+                    <div class="track-area">
+                        <audio id="track2" crossorigin="anonymous"></audio>
+                        <img
+                            class="record-img"
+                            src="./src/images/record_b.png"
+                        >
+                        <button class="ppButton" id="ppButton2" disabled>
+                            <img src="./src/images/play-pause-svgrepo-com.png">
+                        </button>
+                        <div class="all-track-info">
+                            <div class="track-info alarm-text">
+                                <span>Track:</span>
+                                <span class="track-title"></span>
+                            </div>
+                            <div class="track-info alarm-text">
+                                <span>Artist:</span>
+                                <span class="track-artist"></span>
+                            </div>
+                        </div>
+                        <label for="speed2">Speed</label>
+                        <input type="range" id="speed2" min="0.0" max="2.0" step="0.01">
+                        <label for="pan2">Pan</label>
+                        <input type="range" id="pan2" min="-1.0" max="1.0" step="0.01">
+                    </div>
+                </div>
             </div>
         </div>
-
-    </body>
+    </div>
     <style>
         @font-face {
             font-family: "alarmClock";
             src: url("src/fonts/alarm_clock.ttf");
         }
+        @font-face {
+            font-family: "scribble";
+            src: url("src/fonts/ScribbleZack.ttf");
+        }
     </style>
     <script src="./dist/main.js"></script>
+</body>
 </html>
