@@ -113,19 +113,34 @@ pan2.addEventListener("input", e => {
 })
 
 const changeSpeed = (n, speed) => {
-  const audio = n === 1 ? track1.mediaElement : track2.mediaElement;
+  let audio, rotateVar;
+  if (n === 1) {
+    audio = track1.mediaElement;
+    rotateVar = "--track-1-speed";
+  } else {
+    audio = track2.mediaElement;
+    rotateVar = "--track-2-speed";
+  }
   audio.playbackRate = speed;
+  document.documentElement.style.setProperty(rotateVar, `${1 / speed}s`);
 }
 
 const playOrPause = (n) => {
   const ppButton = document.getElementById(`ppButton${n}`);
-  const audio = n === 1 ? track1.mediaElement : track2.mediaElement;
+  let audio, rotateClass;
+  if (n === 1) {
+    audio = track1.mediaElement;
+    rotateClass = "rotate1";
+  } else {
+    audio = track2.mediaElement;
+    rotateClass = "rotate2";
+  }
   const record_img = audio.parentElement.querySelector('.record-img');
   if (audio.paused) {
-    record_img.classList.add("rotate");
+    record_img.classList.add(rotateClass);
     audio.play();
   } else {
-    record_img.classList.remove("rotate");
+    record_img.classList.remove(rotateClass);
     audio.pause();
   }
 };

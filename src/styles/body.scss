@@ -1,6 +1,11 @@
 $equipment-grey: rgb(143, 137, 137);
 $knob-silver: rgb(209, 204, 204);
 
+:root {
+  --track-1-speed: 1s;
+  --track-2-speed: 1s;
+}
+
 .main {
   flex-grow: 2;
   display: flex;
@@ -81,8 +86,12 @@ $knob-silver: rgb(209, 204, 204);
   width: 200px;
 }
 
-.rotate {
-  animation: rotation 1s infinite linear;
+.rotate1 {
+  animation: rotation var(--track-1-speed) infinite linear;
+}
+
+.rotate2 {
+  animation: rotation var(--track-2-speed) infinite linear;
 }
 
 @keyframes rotation {
