@@ -30,7 +30,7 @@ $knob-silver: rgb(209, 204, 204);
 }
 
 .turntable {
-  width: 250px;
+  width: 300px;
 }
 
 .track-area {
@@ -69,10 +69,16 @@ $knob-silver: rgb(209, 204, 204);
   outline: none;
 }
 
+.record-area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .record-img {
+  position: relative;
   height: 200px;
   width: 200px;
-  align-self: center;
 }
 
 .rotate {
@@ -86,6 +92,12 @@ $knob-silver: rgb(209, 204, 204);
   to {
     transform: rotate(359deg);
   }
+}
+
+.speed {
+  position: relative;
+  transform: rotate(270deg);
+  right: 30px;
 }
 
 #middle-section {
