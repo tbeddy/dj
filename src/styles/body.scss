@@ -57,6 +57,9 @@ $knob-silver: rgb(209, 204, 204);
   flex-direction: row;
   justify-content: space-between;
   margin: 5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .alarm-text {
@@ -151,11 +154,6 @@ $knob-silver: rgb(209, 204, 204);
   }
 }
 
-.letter-label {
-  margin: 10px;
-  font-weight: bold;
-}
-
 #track-bank {
   margin: 10px 0px;
   border: solid black 1px;
@@ -163,9 +161,13 @@ $knob-silver: rgb(209, 204, 204);
 }
 
 .track-listing {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   text-align: center;
   margin: 1px;
   font-family: "scribble";
+  font-size: 20px;
   background-color: #d5b087;
 
   &:hover {
@@ -177,7 +179,10 @@ $knob-silver: rgb(209, 204, 204);
   display: inline;
   background-color: white;
   padding: 0px 5px;
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 8px 8px 0px 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 input[type=range] {
