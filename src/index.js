@@ -87,4 +87,16 @@ document.addEventListener("DOMContentLoaded", () => {
       turntable.panNode.pan.value = e.currentTarget.value;
     })
   })
+
+  document.querySelector('#about-modal-button').addEventListener('click', () => {
+    document.querySelector('#about-modal').style.display = "block";
+    document.querySelector('#modal-background').style.display = "block";
+  });
+
+  window.onclick = e => {
+    const el = e.target;
+    if (el === document.getElementById("modal-background")) {
+      el.style.display = "none";
+    }
+  }
 });

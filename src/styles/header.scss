@@ -5,17 +5,37 @@ header {
   align-items: center;
   // height: 5vh;
   height: 50px;
-  background-color: black;
+  background-color: black;  
+}
 
-  .title {
-    font-weight: bold;
-    font-size: 40px;
-    color: white;
+.modal-buttons, .links {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#about-modal-button {
+  background: transparent;
+  color: white;
+  border: solid white 1px;
+  height: 30px;
+  font-size: 20px;
+  margin: 0px 10px;
+
+  &:hover {
+    color: black;
+    background-color: white;
   }
 }
 
+.title {
+  font-weight: bold;
+  font-size: 40px;
+  color: white;
+}
+
 .logo-img {
-  height: 40px;
-  width: 40px;
-  margin: 0px 15px;
+  height: 30px;
+  width: 30px;
+  margin: 0px 10px;
 }
