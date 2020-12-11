@@ -56,9 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
   
-  document.getElementsByClassName('main-area')[0].addEventListener('mouseover', () => {
-    if (ac.state === 'suspended') ac.resume();
-  });
+  document.querySelectorAll('button').forEach(el => {
+    el.addEventListener('click', () => {
+      if (ac.state === 'suspended') ac.resume();
+    });
+  })
   
   document.getElementById('track1').addEventListener('loadeddata', () => {
     turntable1.gainNode.gain.value = 1.0;
