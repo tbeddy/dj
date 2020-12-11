@@ -1,5 +1,4 @@
-$equipment-grey: rgb(143, 137, 137);
-$knob-silver: rgb(209, 204, 204);
+@import './variables.scss';
 
 :root {
   --track-1-speed: 1s;
@@ -152,6 +151,7 @@ $knob-silver: rgb(209, 204, 204);
   width: inherit;
   align-self: center;
   background-color: $equipment-grey;
+  border: solid black 1px;
 
   input[type=range] {
     width: 150px;

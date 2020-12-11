@@ -3,6 +3,9 @@
 @import './body.scss';
 @import './modal.scss';
 
+$equipment-grey: rgb(143, 137, 137);
+$knob-silver: rgb(209, 204, 204);
+
 body {
   display: flex;
   flex-direction: column;

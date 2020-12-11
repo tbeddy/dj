@@ -93,10 +93,18 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('#modal-background').style.display = "block";
   });
 
+  document.querySelector('#instructions-modal-button').addEventListener('click', () => {
+    document.querySelector('#instructions-modal').style.display = "block";
+    document.querySelector('#modal-background').style.display = "block";
+  });
+
   window.onclick = e => {
     const el = e.target;
     if (el === document.getElementById("modal-background")) {
       el.style.display = "none";
+      el.querySelectorAll(".modal").forEach(modal => {
+        modal.style.display = "none";
+      });
     }
   }
 });
