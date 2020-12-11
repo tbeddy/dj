@@ -136,7 +136,11 @@ $knob-silver: rgb(209, 204, 204);
 }
 
 #middle-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 200px;
+  margin: 10px 0px;
 }
 
 .crossfader-area {
@@ -144,7 +148,7 @@ $knob-silver: rgb(209, 204, 204);
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 50px;
+  height: 60px;
   width: inherit;
   align-self: center;
   background-color: $equipment-grey;
@@ -154,8 +158,13 @@ $knob-silver: rgb(209, 204, 204);
   }
 }
 
+.letter-label {
+  margin: 10px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
 #track-bank {
-  margin: 10px 0px;
   border: solid black 1px;
   background-color: black;
 }
