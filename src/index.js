@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const turntable1 = new Turntable(ac, 1);
   const turntable2 = new Turntable(ac, 2);
   const turntables = [turntable1, turntable2];
+  turntable1.draw();
+  turntable2.draw();
   
   const tracks = trackList.map(trackInfo => {
     const { title, artist, url } = trackInfo;
