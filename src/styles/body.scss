@@ -74,6 +74,13 @@
   width: 30px;
   border-radius: 50%;
   outline: none;
+  background-color: $knob-silver;
+  padding: 0px;
+
+  img {
+    height: 18px;
+    width: 18px;
+  }
 }
 
 .record-area {
@@ -154,7 +161,7 @@
   border: solid black 1px;
 
   input[type=range] {
-    width: 150px;
+    width: 130px;
   }
 }
 
