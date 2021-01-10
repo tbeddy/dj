@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
     });
     el.addEventListener('drop', e => {
+      e.preventDefault();
       const trackInfo = tracks[e.dataTransfer.getData("text")];
       const audio = el.querySelector("audio");
       const title = el.querySelector(".track-title");
