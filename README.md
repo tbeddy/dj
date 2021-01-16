@@ -5,7 +5,7 @@ This project implements a basic DJ setup where users transition between tracks (
 
 [Live Link](https://tbeddy.github.io/dj/)
 
-![site_image](./site_image.png)
+![site_image](../media/dj_demo.gif)
 
 ## Features
 
