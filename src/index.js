@@ -72,18 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
     turntable1.gainNode.gain.value = 1.0 - inputValue;
     turntable2.gainNode.gain.value = inputValue;
   });
-  
-  turntables.forEach(turntable => {
-    turntable.speedInput.addEventListener('input', e => {
-      turntable.changeSpeed(e.currentTarget.value);
-    });
-    turntable.ppButton.addEventListener('click', () => {
-      turntable.playOrPause();
-    });
-    turntable.pan.addEventListener('input', e => {
-      turntable.panNode.pan.value = e.currentTarget.value;
-    })
-  })
 
   document.querySelector('#about-modal-button').addEventListener('click', () => {
     document.querySelector('#about-modal').style.display = "block";

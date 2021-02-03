@@ -11,6 +11,16 @@ export default class Turntable {
     this.recordImg = document.getElementById(`record-img${n}`);
     this.panNode = ac.createStereoPanner();
     this.gainNode = ac.createGain();
+
+    document.getElementById(`speed${n}`).addEventListener('input', e => {
+      this.changeSpeed(e.currentTarget.value);
+    });
+    document.getElementById(`pan${n}`).addEventListener('input', e => {
+      this.panNode.pan.value = e.currentTarget.value;
+    })
+    this.ppButton.addEventListener('click', () => {
+      this.playOrPause();
+    });
   }
 
   changeTrack(url) {
