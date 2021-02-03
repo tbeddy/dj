@@ -22,7 +22,6 @@ export default class Turntable {
   }
 
   changeTrack(url) {
-    if (this.track) this.track.stop();
     this.ppButton.setAttribute("disabled", true);
     const myRequest = new Request(url);
     fetch(myRequest)
