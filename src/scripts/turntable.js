@@ -4,9 +4,7 @@ export default class Turntable {
     this.rotateVar = `--track-${n}-speed`;
     this.rotateClass = `rotate${n}`;
     this.paused = true;
-    this.speedVal = 1.0;
-    this.speedInput = document.getElementById(`speed${n}`);
-    this.pan = document.getElementById(`pan${n}`);
+    this.speed = 1.0;
     this.ppButton = document.getElementById(`ppButton${n}`);
     this.recordImg = document.getElementById(`record-img${n}`);
     this.panNode = ac.createStereoPanner();
@@ -45,11 +43,11 @@ export default class Turntable {
       .connect(this.gainNode)
       .connect(this.panNode)
       .connect(this.ac.destination);
-    this.changeSpeed(this.speedVal);
+    this.changeSpeed(this.speed);
   }
 
   changeSpeed(newSpeed) {
-    this.speedVal = newSpeed;
+    this.speed = newSpeed;
     this.track.playbackRate.value = newSpeed;
     document.documentElement
       .style.setProperty(this.rotateVar, `${1 / newSpeed}s`);
