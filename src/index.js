@@ -46,14 +46,15 @@ document.addEventListener("DOMContentLoaded", () => {
     el.addEventListener('drop', e => {
       e.preventDefault();
       const trackInfo = tracks[e.dataTransfer.getData("text")];
-      const audio = el.querySelector("audio");
       const title = el.querySelector(".track-title");
       const artist = el.querySelector(".track-artist");
-      const ppButton = el.querySelector("button");
-      audio.src = trackInfo.url;
+      if ("1" === el.id.match(/track-area(\d)/)[1]) {
+        turntable1.changeTrack(trackInfo.url)
+      } else {
+        turntable2.changeTrack(trackInfo.url)
+      }
       title.innerHTML = trackInfo.title;
       artist.innerHTML = trackInfo.artist;
-      ppButton.removeAttribute("disabled");
     });
   });
   
@@ -62,14 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (ac.state === 'suspended') ac.resume();
     });
   })
-  
-  document.getElementById('track1').addEventListener('loadeddata', () => {
-    turntable1.gainNode.gain.value = 1.0;
-  });
-  
-  document.getElementById('track2').addEventListener('loadeddata', () => {
-    turntable2.gainNode.gain.value = 0.0;
-  });
+
+  turntable1.gainNode.gain.value = 1.0;
+  turntable2.gainNode.gain.value = 0.0;
   
   document.getElementById('crossfader').addEventListener('input', e => {
     const inputValue = e.currentTarget.value;
@@ -78,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   
   turntables.forEach(turntable => {
-    turntable.speed.addEventListener('input', e => {
+    turntable.speedInput.addEventListener('input', e => {
       turntable.changeSpeed(e.currentTarget.value);
     });
     turntable.ppButton.addEventListener('click', () => {
