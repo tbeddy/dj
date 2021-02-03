@@ -27,12 +27,11 @@ export default class Turntable {
     const myRequest = new Request(url);
     fetch(myRequest)
       .then(response => response.arrayBuffer())
-      .then(buffer => {
-        this.ac.decodeAudioData(buffer, decodedBuffer => {
-          this.buffer = decodedBuffer;
-          this.reloadBuffer();
-          this.ppButton.removeAttribute("disabled");
-        });
+      .then(buffer => this.ac.decodeAudioData(buffer))
+      .then(decodedBuffer => {
+        this.buffer = decodedBuffer;
+        this.reloadBuffer();
+        this.ppButton.removeAttribute("disabled");
       });
   }
 
