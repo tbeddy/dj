@@ -1,5 +1,6 @@
 export default class Turntable {
-  constructor(ac, n) {
+  constructor(ac, tracks, n) {
+    this.tracks = tracks;
     this.ac = ac;
     this.rotateVar = `--track-${n}-speed`;
     this.rotateClass = `rotate${n}`;
@@ -9,6 +10,7 @@ export default class Turntable {
     this.recordImg = document.getElementById(`record-img${n}`);
     this.titleText = document.getElementById(`track-title${n}`);
     this.artistText = document.getElementById(`track-artist${n}`);
+    this.trackArea = document.getElementById(`track-area${n}`);
     this.panNode = ac.createStereoPanner();
     this.gainNode = ac.createGain();
 
@@ -20,6 +22,14 @@ export default class Turntable {
     })
     this.ppButton.addEventListener('click', () => {
       this.playOrPause();
+    });
+    this.trackArea.addEventListener('dragover', e => {
+      e.preventDefault();
+    });
+    this.trackArea.addEventListener('drop', e => {
+      e.preventDefault();
+      const trackInfo = this.tracks[e.dataTransfer.getData("text")];
+      this.changeTrack(trackInfo);
     });
   }
 

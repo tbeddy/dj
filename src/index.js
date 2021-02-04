@@ -6,13 +6,13 @@ const trackList = require("./tracks.json");
 document.addEventListener("DOMContentLoaded", () => {
   const ac = new (window.AudioContext || window.webkitAudioContext)();
   
-  const turntable1 = new Turntable(ac, 1);
-  const turntable2 = new Turntable(ac, 2);
-  
   const tracks = trackList.map(trackInfo => {
     const { title, artist, url } = trackInfo;
     return new Track(title, artist, url);
   });
+
+  const turntable1 = new Turntable(ac, tracks, 1);
+  const turntable2 = new Turntable(ac, tracks, 2);
   
   const trackBank = document.getElementById("track-bank");
   const ul = document.createElement("ul");
@@ -36,21 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
       e.dataTransfer.setData("text/plain", el.id);
       e.dataTransfer.setDragImage(blank_record, 150, 150);
     })
-  });
-  
-  document.querySelectorAll(".track-area").forEach(el => {
-    el.addEventListener('dragover', e => {
-      e.preventDefault();
-    });
-    el.addEventListener('drop', e => {
-      e.preventDefault();
-      const trackInfo = tracks[e.dataTransfer.getData("text")];
-      if ("1" === el.id.match(/track-area(\d)/)[1]) {
-        turntable1.changeTrack(trackInfo);
-      } else {
-        turntable2.changeTrack(trackInfo);
-      }
-    });
   });
   
   document.querySelectorAll('button').forEach(el => {
