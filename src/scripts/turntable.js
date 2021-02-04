@@ -13,6 +13,7 @@ export default class Turntable {
     this.trackArea = document.getElementById(`track-area${n}`);
     this.panNode = ac.createStereoPanner();
     this.gainNode = ac.createGain();
+    this.gainNode.gain.value = n === 1 ? 1.0 : 0.0;
 
     document.getElementById(`speed${n}`).addEventListener('input', e => {
       this.changeSpeed(e.currentTarget.value);
