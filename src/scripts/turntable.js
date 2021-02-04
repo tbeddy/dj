@@ -7,6 +7,8 @@ export default class Turntable {
     this.speed = 1.0;
     this.ppButton = document.getElementById(`ppButton${n}`);
     this.recordImg = document.getElementById(`record-img${n}`);
+    this.titleText = document.getElementById(`track-title${n}`);
+    this.artistText = document.getElementById(`track-artist${n}`);
     this.panNode = ac.createStereoPanner();
     this.gainNode = ac.createGain();
 
@@ -21,9 +23,11 @@ export default class Turntable {
     });
   }
 
-  changeTrack(url) {
+  changeTrack(trackInfo) {
     this.ppButton.setAttribute("disabled", true);
-    const myRequest = new Request(url);
+    this.titleText.innerHTML = "Loading";
+    this.artistText.innerHTML = "";
+    const myRequest = new Request(trackInfo.url);
     fetch(myRequest)
       .then(response => response.arrayBuffer())
       .then(buffer => this.ac.decodeAudioData(buffer))
@@ -31,6 +35,8 @@ export default class Turntable {
         this.buffer = decodedBuffer;
         this.reloadBuffer();
         this.ppButton.removeAttribute("disabled");
+        this.titleText.innerHTML = trackInfo.title;
+        this.artistText.innerHTML = trackInfo.artist;
       });
   }
 

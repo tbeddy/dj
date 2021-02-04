@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
   const turntable1 = new Turntable(ac, 1);
   const turntable2 = new Turntable(ac, 2);
-  const turntables = [turntable1, turntable2];
   
   const tracks = trackList.map(trackInfo => {
     const { title, artist, url } = trackInfo;
@@ -46,15 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
     el.addEventListener('drop', e => {
       e.preventDefault();
       const trackInfo = tracks[e.dataTransfer.getData("text")];
-      const title = el.querySelector(".track-title");
-      const artist = el.querySelector(".track-artist");
       if ("1" === el.id.match(/track-area(\d)/)[1]) {
-        turntable1.changeTrack(trackInfo.url)
+        turntable1.changeTrack(trackInfo);
       } else {
-        turntable2.changeTrack(trackInfo.url)
+        turntable2.changeTrack(trackInfo);
       }
-      title.innerHTML = trackInfo.title;
-      artist.innerHTML = trackInfo.artist;
     });
   });
   
