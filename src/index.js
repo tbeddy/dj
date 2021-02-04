@@ -43,9 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (ac.state === 'suspended') ac.resume();
     });
   })
-
-  turntable1.gainNode.gain.value = 1.0;
-  turntable2.gainNode.gain.value = 0.0;
   
   document.getElementById('crossfader').addEventListener('input', e => {
     const inputValue = e.currentTarget.value;
