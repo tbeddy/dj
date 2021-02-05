@@ -6,6 +6,7 @@ export default class Turntable {
     this.rotateClass = `rotate${n}`;
     this.paused = true;
     this.speed = 1.0;
+    this.currentTime = 0.0;
     this.ppButton = document.getElementById(`ppButton${n}`);
     this.recordImg = document.getElementById(`record-img${n}`);
     this.titleText = document.getElementById(`track-title${n}`);
@@ -53,6 +54,7 @@ export default class Turntable {
         this.ppButton.removeAttribute("disabled");
         this.titleText.innerHTML = trackInfo.title;
         this.artistText.innerHTML = trackInfo.artist;
+        this.currentTime = 0.0;
       });
   }
 
@@ -76,13 +78,15 @@ export default class Turntable {
   playOrPause() {
     if (this.paused) {
       this.recordImg.classList.add(this.rotateClass);
-      this.track.start();
+      this.track.start(this.ac.currentTime, this.currentTime);
       this.paused = false;
+      this.startDate = new Date();
     } else {
       this.recordImg.classList.remove(this.rotateClass);
       this.track.stop();
       this.reloadBuffer();
       this.paused = true;
+      this.currentTime += (new Date() - this.startDate) / 1000;
     }
   }
 }
