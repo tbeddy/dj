@@ -8,7 +8,7 @@
   z-index: 29;
 }
 
-#about-modal, #instructions-modal {
+.modal {
   display: none;
   position: absolute;
   left: 50%;
@@ -26,7 +26,7 @@
   }
 }
 
-#about-modal {
+#about-modal, #error-modal {
   text-align: center;
 }
 

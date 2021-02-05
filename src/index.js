@@ -6,14 +6,13 @@ const trackList = require("./tracks.json");
 document.addEventListener("DOMContentLoaded", () => {
   const ac = new (window.AudioContext || window.webkitAudioContext)();
   
-  const turntable1 = new Turntable(ac, 1);
-  const turntable2 = new Turntable(ac, 2);
-  const turntables = [turntable1, turntable2];
-  
   const tracks = trackList.map(trackInfo => {
     const { title, artist, url } = trackInfo;
     return new Track(title, artist, url);
   });
+
+  const turntable1 = new Turntable(ac, tracks, 1);
+  const turntable2 = new Turntable(ac, tracks, 2);
   
   const trackBank = document.getElementById("track-bank");
   const ul = document.createElement("ul");
@@ -39,55 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   });
   
-  document.querySelectorAll(".track-area").forEach(el => {
-    el.addEventListener('dragover', e => {
-      e.preventDefault();
-    });
-    el.addEventListener('drop', e => {
-      e.preventDefault();
-      const trackInfo = tracks[e.dataTransfer.getData("text")];
-      const audio = el.querySelector("audio");
-      const title = el.querySelector(".track-title");
-      const artist = el.querySelector(".track-artist");
-      const ppButton = el.querySelector("button");
-      audio.src = trackInfo.url;
-      title.innerHTML = trackInfo.title;
-      artist.innerHTML = trackInfo.artist;
-      ppButton.removeAttribute("disabled");
-    });
-  });
-  
   document.querySelectorAll('button').forEach(el => {
     el.addEventListener('click', () => {
       if (ac.state === 'suspended') ac.resume();
     });
   })
   
-  document.getElementById('track1').addEventListener('loadeddata', () => {
-    turntable1.gainNode.gain.value = 1.0;
-  });
-  
-  document.getElementById('track2').addEventListener('loadeddata', () => {
-    turntable2.gainNode.gain.value = 0.0;
-  });
-  
   document.getElementById('crossfader').addEventListener('input', e => {
     const inputValue = e.currentTarget.value;
     turntable1.gainNode.gain.value = 1.0 - inputValue;
     turntable2.gainNode.gain.value = inputValue;
   });
-  
-  turntables.forEach(turntable => {
-    turntable.speed.addEventListener('input', e => {
-      turntable.changeSpeed(e.currentTarget.value);
-    });
-    turntable.ppButton.addEventListener('click', () => {
-      turntable.playOrPause();
-    });
-    turntable.pan.addEventListener('input', e => {
-      turntable.panNode.pan.value = e.currentTarget.value;
-    })
-  })
 
   document.querySelector('#about-modal-button').addEventListener('click', () => {
     document.querySelector('#about-modal').style.display = "block";

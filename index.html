@@ -58,15 +58,20 @@
                     <p>4. Use the slider in the middle to mix the sounds!</p>
                 </div>
             </div>
+            <div id="error-modal" class="modal">
+                <div>
+                    <p>You can't switch records while the turntable is on!</p>
+                </div>
+            </div>
         </div>
         <div class="main-area">
             <div class="all-tracks-area">
                 <div class="turntable">
-                    <div class="track-area">
-                        <audio id="track1" crossorigin="anonymous"></audio>
+                    <div class="track-area" id="track-area1">
                         <div class="record-area">
                             <img
                                 class="record-img"
+                                id="record-img1"
                                 src="./src/images/record_a.png"
                             >
                             <div class="speed-area">
@@ -84,11 +89,11 @@
                         <div class="all-track-info">
                             <div class="track-info alarm-text">
                                 <span>Track:</span>
-                                <span class="track-title"></span>
+                                <span class="track-title" id="track-title1"></span>
                             </div>
                             <div class="track-info alarm-text">
                                 <span>Artist:</span>
-                                <span class="track-artist"></span>
+                                <span class="track-artist" id="track-artist1"></span>
                             </div>
                         </div>
                         <div class="pan-labels">
@@ -107,11 +112,11 @@
                     </div>
                 </div>
                 <div class="turntable">
-                    <div class="track-area">
-                        <audio id="track2" crossorigin="anonymous"></audio>
+                    <div class="track-area" id="track-area2">
                         <div class="record-area">
                             <img
                                 class="record-img"
+                                id="record-img2"
                                 src="./src/images/record_b.png"
                             >
                             <div class="speed-area">
@@ -129,11 +134,11 @@
                         <div class="all-track-info">
                             <div class="track-info alarm-text">
                                 <span>Track:</span>
-                                <span class="track-title"></span>
+                                <span class="track-title" id="track-title2"></span>
                             </div>
                             <div class="track-info alarm-text">
                                 <span>Artist:</span>
-                                <span class="track-artist"></span>
+                                <span class="track-artist" id="track-artist2"></span>
                             </div>
                         </div>
                         <div class="pan-labels">
