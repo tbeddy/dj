@@ -30,7 +30,12 @@ export default class Turntable {
     this.trackArea.addEventListener('drop', e => {
       e.preventDefault();
       const trackInfo = this.tracks[e.dataTransfer.getData("text")];
-      this.changeTrack(trackInfo);
+      if (this.paused) {
+        this.changeTrack(trackInfo);
+      } else {
+        document.querySelector('#error-modal').style.display = "block";
+        document.querySelector('#modal-background').style.display = "block";
+      }
     });
   }
 
