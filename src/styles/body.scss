@@ -23,6 +23,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  width: 800px;
   border: solid black 1px;
   background-color: rgb(49, 49, 47);
   background-size: cover;
@@ -240,4 +241,10 @@ input[type=range] {
     background-color: $knob-silver;
     cursor: pointer;
   }
+}
+
+#beat-canvas1, #beat-canvas2 {
+  height: 100px;
+  width: 100%;
+  padding: 10px;
 }
