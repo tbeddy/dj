@@ -103,13 +103,14 @@ export default class Turntable {
     this.volumeCtx.beginPath();
     this.volumeCtx.rect(0, 0, this.VOLUME_WIDTH, this.VOLUME_HEIGHT);
     this.volumeCtx.fill();
-    const barWidth = (this.VOLUME_WIDTH / this.bufferLength) * 2.5;
-    let x = 0;
+    const barHeight = (this.VOLUME_HEIGHT / this.bufferLength) * 2.5;
+    let y = 0;
+
     for (let slice of dataArray) {
-      const barHeight = slice / 2;
-      this.volumeCtx.fillStyle = `rgb(${barHeight + 100},50,50)`;
-      this.volumeCtx.fillRect(x, this.VOLUME_HEIGHT - barHeight / 2, barWidth, barHeight);
-      x += barWidth + 1;
+      const barWidth = slice / 2;
+      this.volumeCtx.fillStyle = `rgb(${barWidth + 100},50,50)`;
+      this.volumeCtx.fillRect(this.VOLUME_WIDTH - barWidth / 2, y, barWidth, barHeight);
+      y += barHeight + 1;
     }
   }
 
