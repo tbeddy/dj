@@ -16,20 +16,29 @@ export default class Turntable {
     this.gainNode = ac.createGain();
     this.gainNode.gain.value = n === 1 ? 1.0 : 0.0;
 
-    this.analyserNode = ac.createAnalyser();
+    this.beatAnalyserNode = ac.createAnalyser();
     this.filterNode = ac.createBiquadFilter();
     this.filterNode.type = "lowpass";
     this.filterNode.frequency.value = 100;
-    this.analyserNode.fftSize = 2048;
-    this.canvas = document.getElementById(`beat-canvas${n}`);
-    this.ctx = this.canvas.getContext("2d");
-    this.WIDTH = this.canvas.width;
-    this.HEIGHT = this.canvas.height;
+    this.beatAnalyserNode.fftSize = 2048;
+    this.beatCanvas = document.getElementById(`beat-canvas${n}`);
+    this.beatCtx = this.beatCanvas.getContext("2d");
+    this.BEAT_WIDTH = this.beatCanvas.width;
+    this.BEAT_HEIGHT = this.beatCanvas.height;
     this.sliceCount = 100;
-    this.sliceWidth = this.WIDTH * 1.0 / this.sliceCount;
+    this.sliceWidth = this.BEAT_WIDTH * 1.0 / this.sliceCount;
     this.slices = Array(this.sliceCount).fill(0);
 
-    this.draw();
+    this.volumeAnalyserNode = ac.createAnalyser();
+    this.volumeAnalyserNode.fftSize = 256;
+    this.volumeCanvas = document.getElementById(`volume-canvas${n}`);
+    this.volumeCtx = this.volumeCanvas.getContext("2d");
+    this.VOLUME_WIDTH = this.volumeCanvas.width;
+    this.VOLUME_HEIGHT = this.volumeCanvas.height;
+    this.bufferLength = this.volumeAnalyserNode.frequencyBinCount;
+
+    this.beatDraw();
+    this.volumeDraw();
 
     document.getElementById(`speed${n}`).addEventListener('input', e => {
       this.changeSpeed(e.currentTarget.value);
@@ -55,35 +64,53 @@ export default class Turntable {
     });
   }
 
-  draw() {
-    requestAnimationFrame(this.draw.bind(this));
+  beatDraw() {
+    requestAnimationFrame(this.beatDraw.bind(this));
     const dataArray = new Uint8Array(this.sliceCount);
-    this.analyserNode.getByteTimeDomainData(dataArray);
+    this.beatAnalyserNode.getByteTimeDomainData(dataArray);
     const newMax = Math.max(...dataArray) - 128;
 
     this.slices.pop();
     this.slices.unshift(newMax);
-
-    this.ctx.fillStyle = 'black';
-    this.ctx.beginPath();
-    this.ctx.rect(0, 0, this.WIDTH, this.HEIGHT);
-    this.ctx.fill()
-    this.ctx.lineWidth = 1;
-    this.ctx.strokeStyle = 'red';
-    this.ctx.beginPath();
+    this.beatCtx.fillStyle = 'black';
+    this.beatCtx.beginPath();
+    this.beatCtx.rect(0, 0, this.BEAT_WIDTH, this.BEAT_HEIGHT);
+    this.beatCtx.fill();
+    this.beatCtx.lineWidth = 1;
+    this.beatCtx.strokeStyle = 'red';
+    this.beatCtx.beginPath();
     let x = 0;
 
     this.slices.forEach((slice, idx) => {
-      let y = this.HEIGHT - slice;
+      let y = this.BEAT_HEIGHT - slice;
       if (idx === 0) {
-        this.ctx.moveTo(x, y);
+        this.beatCtx.moveTo(x, y);
       } else {
-        this.ctx.lineTo(x, y);
+        this.beatCtx.lineTo(x, y);
       }
       x += this.sliceWidth;
     })
-    this.ctx.lineTo(this.WIDTH, this.HEIGHT);
-    this.ctx.stroke();
+    this.beatCtx.lineTo(this.BEAT_WIDTH, this.BEAT_HEIGHT);
+    this.beatCtx.stroke();
+  }
+
+  volumeDraw() {
+    requestAnimationFrame(this.volumeDraw.bind(this));
+    const dataArray = new Uint8Array(this.bufferLength);
+    this.volumeAnalyserNode.getByteFrequencyData(dataArray);
+
+    this.volumeCtx.fillStyle = 'black';
+    this.volumeCtx.beginPath();
+    this.volumeCtx.rect(0, 0, this.VOLUME_WIDTH, this.VOLUME_HEIGHT);
+    this.volumeCtx.fill();
+    const barWidth = (this.VOLUME_WIDTH / this.bufferLength) * 2.5;
+    let x = 0;
+    for (let slice of dataArray) {
+      const barHeight = slice / 2;
+      this.volumeCtx.fillStyle = `rgb(${barHeight + 100},50,50)`;
+      this.volumeCtx.fillRect(x, this.VOLUME_HEIGHT - barHeight / 2, barWidth, barHeight);
+      x += barWidth + 1;
+    }
   }
 
   changeTrack(trackInfo) {
@@ -113,7 +140,10 @@ export default class Turntable {
       .connect(this.ac.destination);
     this.track
       .connect(this.filterNode)
-      .connect(this.analyserNode);
+      .connect(this.beatAnalyserNode);
+    this.track
+      .connect(this.gainNode)
+      .connect(this.volumeAnalyserNode);
     this.changeSpeed(this.speed);
   }
 

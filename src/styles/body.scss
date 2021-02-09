@@ -248,3 +248,18 @@ input[type=range] {
   width: 100%;
   padding: 10px;
 }
+
+#volume-canvas1, #volume-canvas2 {
+  position: fixed;
+  height: 95vh;
+  width: 50vw;
+  bottom: 0;
+}
+
+#volume-canvas1 {
+  left: 0;
+}
+
+#volume-canvas2 {
+  left: 50vw;
+}
