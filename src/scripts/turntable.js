@@ -36,6 +36,9 @@ export default class Turntable {
     this.VOLUME_WIDTH = this.volumeCanvas.width;
     this.VOLUME_HEIGHT = this.volumeCanvas.height;
     this.bufferLength = this.volumeAnalyserNode.frequencyBinCount;
+    this.volumeSide = barWidth => {
+      return n == 1 ? 0 : this.VOLUME_WIDTH - barWidth;
+    }
 
     this.beatDraw();
     this.volumeDraw();
@@ -109,7 +112,7 @@ export default class Turntable {
     for (let slice of dataArray) {
       const barWidth = slice / 2;
       this.volumeCtx.fillStyle = `rgb(${barWidth + 100},50,50)`;
-      this.volumeCtx.fillRect(this.VOLUME_WIDTH - barWidth / 2, y, barWidth, barHeight);
+      this.volumeCtx.fillRect(this.volumeSide(barWidth), y, barWidth, barHeight);
       y += barHeight + 1;
     }
   }
