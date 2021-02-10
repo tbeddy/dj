@@ -41,7 +41,7 @@ export default class Turntable {
     }
 
     this.beatDraw();
-    this.volumeDraw();
+    // this.volumeDraw();
 
     document.getElementById(`speed${n}`).addEventListener('input', e => {
       this.changeSpeed(e.currentTarget.value);
@@ -102,19 +102,20 @@ export default class Turntable {
     const dataArray = new Uint8Array(this.bufferLength);
     this.volumeAnalyserNode.getByteFrequencyData(dataArray);
 
+    this.volumeCtx.globalAlpha = 0.5;
     this.volumeCtx.fillStyle = 'black';
     this.volumeCtx.beginPath();
     this.volumeCtx.rect(0, 0, this.VOLUME_WIDTH, this.VOLUME_HEIGHT);
     this.volumeCtx.fill();
-    const barHeight = (this.VOLUME_HEIGHT / this.bufferLength) * 2.5;
+    const barHeight = (this.VOLUME_HEIGHT / this.bufferLength);
     let y = 0;
-
-    for (let slice of dataArray) {
-      const barWidth = slice / 2;
-      this.volumeCtx.fillStyle = `rgb(${barWidth + 100},50,50)`;
-      this.volumeCtx.fillRect(this.volumeSide(barWidth), y, barWidth, barHeight);
-      y += barHeight + 1;
-    }
+    
+    this.volumeCtx.globalAlpha = 0.1;
+    dataArray.forEach((barWidth, idx) => {
+      this.volumeCtx.fillStyle = 'red';
+      this.volumeCtx.fillRect(this.volumeSide(barWidth), y, barWidth, barHeight * 3);
+      y += barHeight + 2;
+    })
   }
 
   changeTrack(trackInfo) {
