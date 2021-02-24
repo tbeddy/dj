@@ -42,8 +42,17 @@ export default class Turntable {
   }
 
   changeTonearmPosition() {
-    if (!this.paused) this.currentTime += this.speed;
-    console.log(this.currentTime, this.buffer.duration);
+    // 0.1 because this function is being run 10 times a second
+    if (!this.paused) {
+      this.currentTime += 0.1 * this.speed;
+    }
+    // The track has ended
+    if (this.currentTime >= this.buffer.duration) {
+      this.playOrPause();
+      this.currentTime = 0.0;
+      this.changeTonearmPosition();
+      clearInterval(this.tonearmInterval);
+    }
     document.documentElement
       .style.setProperty(this.tonearmVar,
         `${(30 * this.currentTime / this.buffer.duration) + 8}deg`);
@@ -64,13 +73,8 @@ export default class Turntable {
         this.titleText.innerHTML = trackInfo.title;
         this.artistText.innerHTML = trackInfo.artist;
         this.currentTime = 0.0;
-        this.tonearmInterval = setInterval(this.changeTonearmPosition.bind(this), 1000);
-        this.track.onended = e => {
-          this.playOrPause();
-          this.currentTime = 0.0;
-          this.changeTonearmPosition();
-          clearInterval(this.tonearmInterval);
-        }
+        this.tonearmInterval = setInterval(
+          this.changeTonearmPosition.bind(this), 100);
       });
   }
 
@@ -96,13 +100,11 @@ export default class Turntable {
       this.recordImg.classList.add(this.rotateClass);
       this.track.start(this.ac.currentTime, this.currentTime);
       this.paused = false;
-      this.startDate = new Date();
     } else {
       this.recordImg.classList.remove(this.rotateClass);
       this.track.stop();
-      this.reloadBuffer();
       this.paused = true;
-      this.currentTime += (new Date() - this.startDate) / 1000;
+      this.reloadBuffer();
     }
   }
 }
