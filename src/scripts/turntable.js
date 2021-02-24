@@ -104,6 +104,7 @@ export default class Turntable {
 
   playOrPause() {
     if (this.paused) {
+      this.paused = false;
       // The track has now just begun, so start changing the tonearm
       if (this.currentTime === 0.0) {
         this.tonearmInterval = setInterval(
@@ -111,11 +112,10 @@ export default class Turntable {
       }
       this.recordImg.classList.add(this.rotateClass);
       this.track.start(this.ac.currentTime, this.currentTime);
-      this.paused = false;
     } else {
+      this.paused = true;
       this.recordImg.classList.remove(this.rotateClass);
       this.track.stop();
-      this.paused = true;
       this.reloadBuffer();
     }
   }
