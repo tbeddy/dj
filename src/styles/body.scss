@@ -3,6 +3,8 @@
 :root {
   --track-1-speed: 1s;
   --track-2-speed: 1s;
+  --tonearm-1: 8deg;
+  --tonearm-2: 8deg;
 }
 
 .main {
@@ -84,6 +86,7 @@
 }
 
 .record-area {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -112,7 +115,27 @@
   }
 }
 
+.tonearm-img {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  height: 180px;
+  width: 60px;
+  transform-origin: 30px 40px;
+}
+
+#tonearm-img1 {
+  transform: rotate(var(--tonearm-1));
+}
+
+#tonearm-img2 {
+  transform: rotate(var(--tonearm-2));
+}
+
 .speed-area {
+  position: absolute;
+  bottom: 10px;
+  right: -80px;
   display: flex;
   flex-direction: row;
   align-items: center;

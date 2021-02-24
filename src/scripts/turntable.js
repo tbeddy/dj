@@ -4,6 +4,7 @@ export default class Turntable {
     this.ac = ac;
     this.rotateVar = `--track-${n}-speed`;
     this.rotateClass = `rotate${n}`;
+    this.tonearmVar = `--tonearm-${n}`;
     this.paused = true;
     this.speed = 1.0;
     this.currentTime = 0.0;
@@ -40,6 +41,14 @@ export default class Turntable {
     });
   }
 
+  changeTonearmPosition() {
+    if (!this.paused) this.currentTime += this.speed;
+    console.log(this.currentTime, this.buffer.duration);
+    document.documentElement
+      .style.setProperty(this.tonearmVar,
+        `${(30 * this.currentTime / this.buffer.duration) + 8}deg`);
+  }
+
   changeTrack(trackInfo) {
     this.ppButton.setAttribute("disabled", true);
     this.titleText.innerHTML = "Loading";
@@ -55,6 +64,13 @@ export default class Turntable {
         this.titleText.innerHTML = trackInfo.title;
         this.artistText.innerHTML = trackInfo.artist;
         this.currentTime = 0.0;
+        this.tonearmInterval = setInterval(this.changeTonearmPosition.bind(this), 1000);
+        this.track.onended = e => {
+          this.playOrPause();
+          this.currentTime = 0.0;
+          this.changeTonearmPosition();
+          clearInterval(this.tonearmInterval);
+        }
       });
   }
 
