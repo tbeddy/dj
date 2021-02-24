@@ -78,6 +78,8 @@ export default class Turntable {
         this.titleText.innerHTML = trackInfo.title;
         this.artistText.innerHTML = trackInfo.artist;
         this.currentTime = 0.0;
+        clearInterval(this.tonearmInterval);
+        this.restToneArm();
       });
   }
 
