@@ -50,7 +50,6 @@ export default class Turntable {
     if (this.currentTime >= this.buffer.duration) {
       this.playOrPause();
       this.currentTime = 0.0;
-      this.changeTonearmPosition();
       clearInterval(this.tonearmInterval);
     }
     document.documentElement
@@ -90,7 +89,9 @@ export default class Turntable {
 
   changeSpeed(newSpeed) {
     this.speed = newSpeed;
-    this.track.playbackRate.value = newSpeed;
+    if (this.track) {
+      this.track.playbackRate.value = newSpeed;
+    }
     document.documentElement
       .style.setProperty(this.rotateVar, `${1 / newSpeed}s`);
   }
