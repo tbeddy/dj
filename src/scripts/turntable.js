@@ -16,6 +16,7 @@ export default class Turntable {
     this.panNode = ac.createStereoPanner();
     this.gainNode = ac.createGain();
     this.gainNode.gain.value = n === 1 ? 1.0 : 0.0;
+    this.restToneArm();
 
     document.getElementById(`speed${n}`).addEventListener('input', e => {
       this.changeSpeed(e.currentTarget.value);
@@ -41,20 +42,25 @@ export default class Turntable {
     });
   }
 
+  restToneArm() {
+    document.documentElement.style.setProperty(this.tonearmVar, '0deg');
+  }
+
   changeTonearmPosition() {
     // 0.1 because this function is being run 10 times a second
     if (!this.paused) {
       this.currentTime += 0.1 * this.speed;
     }
+    document.documentElement
+      .style.setProperty(this.tonearmVar,
+        `${(30 * this.currentTime / this.buffer.duration) + 8}deg`);
     // The track has ended
     if (this.currentTime >= this.buffer.duration) {
       this.playOrPause();
       this.currentTime = 0.0;
       clearInterval(this.tonearmInterval);
+      this.restToneArm();
     }
-    document.documentElement
-      .style.setProperty(this.tonearmVar,
-        `${(30 * this.currentTime / this.buffer.duration) + 8}deg`);
   }
 
   changeTrack(trackInfo) {
@@ -72,8 +78,6 @@ export default class Turntable {
         this.titleText.innerHTML = trackInfo.title;
         this.artistText.innerHTML = trackInfo.artist;
         this.currentTime = 0.0;
-        this.tonearmInterval = setInterval(
-          this.changeTonearmPosition.bind(this), 100);
       });
   }
 
@@ -98,6 +102,11 @@ export default class Turntable {
 
   playOrPause() {
     if (this.paused) {
+      // The track has now just begun, so start changing the tonearm
+      if (this.currentTime === 0.0) {
+        this.tonearmInterval = setInterval(
+          this.changeTonearmPosition.bind(this), 100);
+      }
       this.recordImg.classList.add(this.rotateClass);
       this.track.start(this.ac.currentTime, this.currentTime);
       this.paused = false;
