@@ -73,7 +73,8 @@ export default class Turntable {
     requestAnimationFrame(this.beatDraw.bind(this));
     const dataArray = new Uint8Array(this.sliceCount);
     this.beatAnalyserNode.getByteTimeDomainData(dataArray);
-    const newMax = Math.max(...dataArray) > 160;
+    let newMax = Math.max(...dataArray);
+    newMax = newMax > 160 && this.slices.slice(0, 5*(1/this.speed)).every(s=>!s);
     this.slices.pop();
     this.slices.unshift(newMax);
 
