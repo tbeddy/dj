@@ -21,14 +21,14 @@ export default class Turntable {
     this.beatAnalyserNode = ac.createAnalyser();
     this.filterNode = ac.createBiquadFilter();
     this.filterNode.type = "lowpass";
-    this.filterNode.frequency.value = 100;
+    this.filterNode.frequency.value = 80;
     this.beatAnalyserNode.fftSize = 2048;
     this.beatCanvas = document.getElementById(`beat-canvas${n}`);
     this.beatCtx = this.beatCanvas.getContext("2d");
     this.BEAT_WIDTH = this.beatCanvas.width;
     this.BEAT_HEIGHT = this.beatCanvas.height;
     this.sliceCount = 100;
-    this.sliceWidth = this.BEAT_WIDTH * 1.0 / this.sliceCount;
+    this.sliceWidth = this.BEAT_WIDTH / this.sliceCount;
     this.slices = Array(this.sliceCount).fill(0);
 
     this.volumeAnalyserNode = ac.createAnalyser();
@@ -73,30 +73,25 @@ export default class Turntable {
     requestAnimationFrame(this.beatDraw.bind(this));
     const dataArray = new Uint8Array(this.sliceCount);
     this.beatAnalyserNode.getByteTimeDomainData(dataArray);
-    const newMax = Math.max(...dataArray) - 128;
-
+    const newMax = Math.max(...dataArray) > 160;
     this.slices.pop();
     this.slices.unshift(newMax);
+
     this.beatCtx.fillStyle = 'black';
     this.beatCtx.beginPath();
     this.beatCtx.rect(0, 0, this.BEAT_WIDTH, this.BEAT_HEIGHT);
     this.beatCtx.fill();
-    this.beatCtx.lineWidth = 1;
-    this.beatCtx.strokeStyle = 'red';
+
+    this.beatCtx.fillStyle = 'red';
     this.beatCtx.beginPath();
     let x = 0;
-
-    this.slices.forEach((slice, idx) => {
-      let y = this.BEAT_HEIGHT - slice;
-      if (idx === 0) {
-        this.beatCtx.moveTo(x, y);
-      } else {
-        this.beatCtx.lineTo(x, y);
+    this.slices.forEach(slice => {
+      if (slice) {
+        this.beatCtx.rect(x, 0, this.sliceWidth, this.BEAT_HEIGHT);
       }
       x += this.sliceWidth;
     })
-    this.beatCtx.lineTo(this.BEAT_WIDTH, this.BEAT_HEIGHT);
-    this.beatCtx.stroke();
+    this.beatCtx.fill();
   }
 
   volumeDraw() {
